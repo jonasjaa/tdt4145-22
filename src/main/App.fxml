@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Registrering apparat">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="apparatNavn" layoutX="198.0" layoutY="92.0" prefHeight="25.0" prefWidth="526.0" />
+                              <TextArea fx:id="apparatBeskrivelse" layoutX="197.0" layoutY="171.0" prefHeight="271.0" prefWidth="525.0" style="-fx-background-radius: 6px;" wrapText="true" />
+                              <Button fx:id="apparatReg" layoutX="196.0" layoutY="453.0" mnemonicParsing="false" onAction="#regApparat" prefHeight="43.0" prefWidth="525.0" style="-fx-background-radius: 6px;" stylesheets="@style.css" text="Registrer" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font></Button>
+                              <Label layoutX="196.0" layoutY="56.0" text="Apparatnavn" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="195.0" layoutY="132.0" text="Beskrivelse" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="apparatFeedback" layoutX="198.0" layoutY="510.0" prefHeight="30.0" prefWidth="522.0" text="--" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
+          </Tab>
+          <Tab text="Registrere øvelse">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="196.0" layoutY="87.0" text="Navn" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="20.0" />
+                                 </font></Label>
+                              <Label layoutX="196.0" layoutY="165.0" text="Velg type øvelse:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font></Label>
+                              <RadioButton fx:id="apparatOvelseRB" layoutX="369.0" layoutY="164.0" mnemonicParsing="false" onAction="#regOvelse" text="Apparatøvelse" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="friOvelseRB" layoutX="548.0" layoutY="164.0" mnemonicParsing="false" onAction="#regOvelse" text="Friøvelse" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font></RadioButton>
+                              <TextField fx:id="ovelseNavn" layoutX="196.0" layoutY="122.0" prefWidth="526.0" />
+                              <Pane fx:id="apparatOvelsePane" layoutX="196.0" layoutY="206.0" prefHeight="244.0" prefWidth="525.0" style="-fx-background-color: white;" visible="false">
+                                 <children>
+                                    <ComboBox fx:id="apparatDropdown" layoutX="24.0" layoutY="20.0" prefHeight="31.0" prefWidth="478.0" />
+                                    <TextField fx:id="apparatAntallKilo" layoutX="101.0" layoutY="111.0" prefHeight="25.0" prefWidth="400.0" visible="false" />
+                                    <TextField fx:id="apparatAntallSett" layoutX="101.0" layoutY="145.0" prefHeight="25.0" prefWidth="399.0" visible="false" />
+                                    <Label fx:id="labelantkilo" layoutX="25.0" layoutY="115.0" text="Antall kilo: " visible="false" />
+                                    <Label fx:id="labelantsett" layoutX="24.0" layoutY="149.0" text="Antall sett: " visible="false" />
+                                    <Button fx:id="apparatOvelseReg" layoutX="25.0" layoutY="180.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="476.0" stylesheets="@style.css" text="Registrer apparatøvelse" visible="false" />
+                                    <Button fx:id="apparatVelg" layoutX="138.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="251.0" style="-fx-background-color: orange;" text="Velg apparat" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="friOvelsePane" layoutX="196.0" layoutY="206.0" prefHeight="247.0" prefWidth="524.0" style="-fx-background-color: white;" visible="false">
+                                 <children>
+                                    <TextArea fx:id="friOvelseBeskrivelse" layoutX="14.0" layoutY="35.0" prefHeight="153.0" prefWidth="496.0" wrapText="true" />
+                                    <Label layoutX="14.0" layoutY="14.0" text="Beskrivelse: " />
+                                    <Button fx:id="friOvelseReg" layoutX="14.0" layoutY="190.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="496.0" stylesheets="@style.css" text="Registrer friøvelse" />
+                                 </children>
+                              </Pane>
+                              <Label fx:id="ovelseFeedback" layoutX="196.0" layoutY="495.0" prefHeight="30.0" prefWidth="522.0" text="--" textFill="WHITE">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
+          </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
