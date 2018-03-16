@@ -119,6 +119,20 @@ public class DBHandler {
 		System.out.println(apparatList);
 		return apparatList;
 	}
+	
+	public List<String> getOvelser(Connection conn) throws SQLException {
+		Statement st = conn.createStatement();
+		String sql = "SELECT øvelsenr, navn FROM øvelse";
+		ResultSet rs = st.executeQuery(sql);
+		List<String> ovelseList = new ArrayList<>();
+		while(rs.next()) {
+			int øvelsenr = rs.getInt("øvelsenr");
+			String øvelsenavn = rs.getString("navn");
+			String listStr = String.valueOf(øvelsenr) + "," + øvelsenavn;
+			ovelseList.add(listStr);
+		}
+		return ovelseList;
+	}
 
 	
  
