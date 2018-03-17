@@ -1,14 +1,14 @@
 package main;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 
 //Handler for sende/skrive data til/fra databasen
 public class DBHandler {
@@ -41,7 +41,7 @@ public class DBHandler {
         System.out.println("Successfully inserted to the database");
 	}
 	
-	//Funksjon for å registerer apparatøvelse
+	//Funksjon for å registere apparatøvelse
 	public void registrerApparatOvelse(Connection conn, int apparatnr, String navn, int kilo, int sett) throws SQLException {
 		//Statement for å skrive til øvelsetabellen
 		PreparedStatement stmt1 = conn.prepareStatement(
@@ -76,6 +76,7 @@ public class DBHandler {
 		System.out.println("Successfully inserted to the database");
 	}
 	
+	//Funksjon for å registrere friøvelse
 	public void registrerFriOvelse(Connection conn, String navn, String friOvBeskr) throws SQLException {
 		PreparedStatement stmt1 = conn.prepareStatement(
 				"INSERT INTO øvelse(navn)" +
@@ -99,8 +100,32 @@ public class DBHandler {
 		System.out.println("Successfully inserted to the database");
 	}
 	
-	public void registrerOkt(Connection conn) {
+	//Funksjon for å registrere treningsøkt
+	public void registrerOkt(Connection conn, Date dato, Time tidspunkt, int varighet, int form, int prestasjon, List<Integer> øvelseNrList) throws SQLException {
+		PreparedStatement stmt1 = conn.prepareStatement(
+				"INSERT INTO treningsøkt(dato, tidspunkt, varighet, form, prestasjon)" +
+				"VALUES(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+		stmt1.setDate(1, dato);
+		stmt1.setTime(2, tidspunkt);
+		stmt1.setInt(3, varighet);
+		stmt1.setInt(4, form);
+		stmt1.setInt(5, prestasjon);
+		stmt1.executeUpdate();
 		
+		ResultSet tableKeys = stmt1.getGeneratedKeys();
+		tableKeys.next();
+		int øktNr = tableKeys.getInt(1);
+		
+		//Går igjennom øvelseNr-nøklene som er hentet fra Listen og legger til i øvelseIØkt.
+		for(Integer øvelseNr : øvelseNrList) {
+			PreparedStatement stmt2 = conn.prepareStatement(
+					"INSERT INTO øvelseIØkt(øktnr, øvelsenr)" + 
+					"VALUES(?,?)");
+			stmt2.setInt(1, øktNr);
+			stmt2.setInt(2, øvelseNr);
+			stmt2.executeUpdate();
+		}
+		System.out.println("Successfully inserted to the database");
 	}
 	
 	//Henter ut en liste med apparater som ligger i databasen
@@ -131,6 +156,7 @@ public class DBHandler {
 			String listStr = String.valueOf(øvelsenr) + "," + øvelsenavn;
 			ovelseList.add(listStr);
 		}
+		System.out.println(ovelseList);
 		return ovelseList;
 	}
 
