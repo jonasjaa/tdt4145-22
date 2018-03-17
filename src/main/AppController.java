@@ -234,6 +234,8 @@ public class AppController{
 		});	
 	}
 
+	//Henter apparatøvelsene som er gruppert med synkende verdi på antall kilo
+	//Legger dette i et listview.
 	public void updateHighscore() throws SQLException {
 		DBHandler dbhandler = new DBHandler();
 		List<String> apparatOvelseList = dbhandler.getApparatOvelser(conn);

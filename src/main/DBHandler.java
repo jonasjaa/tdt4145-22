@@ -145,6 +145,7 @@ public class DBHandler {
 		return apparatList;
 	}
 	
+	//Henter ut en liste med alle øvelser som brukes i listview for å legge til treningsøkt med øvelser
 	public List<String> getOvelser(Connection conn) throws SQLException {
 		Statement st = conn.createStatement();
 		String sql = "SELECT øvelsenr, navn FROM øvelse";
@@ -159,6 +160,7 @@ public class DBHandler {
 		return ovelseList;
 	}
 	
+	//Henter ut en liste med alle apparatøvelser sånn at brukeren for opp en highscore.
 	public List<String> getApparatOvelser(Connection conn) throws SQLException {
 		Statement st = conn.createStatement();
 		String sql = "SELECT navn, antallkilo, antallsett FROM øvelse INNER JOIN apparatøvelse ON (apparatøvelse.øvelsenr = øvelse.øvelsenr) ORDER BY antallkilo DESC";
