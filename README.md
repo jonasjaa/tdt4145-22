@@ -1,6 +1,7 @@
 # Gruppe 22 TDT4145 - Databaseprosjekt
 
 Github: git@github.com:jonasjaa/tdt4145-22.git
+
 MySQLdatabase: jonasjaa_prosjektdb
 
 # Beskrivelse av de fem kravene
