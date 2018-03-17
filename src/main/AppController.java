@@ -124,6 +124,7 @@ public class AppController{
 					//apparatNR hentes kun ut for at det skal bli riktig nr i tabellen apparatTilApparatØvelse
 					dbhandler.registrerApparatOvelse(conn, apparatNr, apparatOvelseNavn.getText(), Integer.valueOf(apparatAntallKilo.getText()), Integer.valueOf(apparatAntallSett.getText()));
 					apparatOvelseFeedback.setText(apparatOvelseNavn.getText() + " er lagt til i databasen.");
+					regTreningsokt();
 					
 					//----------------------------------------//
 					//Gjør diverse endringer som å sette panel, knapper og label til usynlig.
@@ -139,7 +140,6 @@ public class AppController{
 				}
 			});
 		});
-		regTreningsokt();
 	}
 	
 	public void regFriOvelse() throws SQLException {
