@@ -195,12 +195,36 @@
                   </BorderPane>
                </content>
             </Tab>
+            <Tab text="Highscore apparatøvelse">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <ListView fx:id="highscoreListview" layoutX="21.0" layoutY="74.0" prefHeight="490.0" prefWidth="875.0" style="-fx-background-color: white;" />
+                              <Button layoutX="21.0" layoutY="21.0" mnemonicParsing="false" onAction="#updateHighscore" prefHeight="35.0" prefWidth="875.0" text="Oppdater highscorelisten" />
+                           </children>
+                        </Pane>
+                     </center>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab text="untitled tab" />
             <Tab text="Untitled Tab">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Registrere treningsøkt" />
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>

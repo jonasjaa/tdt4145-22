@@ -20,6 +20,7 @@ public class DBHandler {
 		DBConn dbconn = new DBConn();
 		DBHandler test = new DBHandler();
 		conn = dbconn.getConn();
+		test.getApparatOvelser(conn);
 	}
 	
 	//Funksjon for å registrere apparat til databasen
@@ -141,10 +142,10 @@ public class DBHandler {
 			String listStr = String.valueOf(apparatnr) + "," + apparatnavn;
 			apparatList.add(listStr);
 		}
-		System.out.println(apparatList);
 		return apparatList;
 	}
 	
+	//Henter ut en liste med alle øvelser som brukes i listview for å legge til treningsøkt med øvelser
 	public List<String> getOvelser(Connection conn) throws SQLException {
 		Statement st = conn.createStatement();
 		String sql = "SELECT øvelsenr, navn FROM øvelse";
@@ -156,10 +157,23 @@ public class DBHandler {
 			String listStr = String.valueOf(øvelsenr) + "," + øvelsenavn;
 			ovelseList.add(listStr);
 		}
-		System.out.println(ovelseList);
 		return ovelseList;
 	}
-
 	
- 
+	//Henter ut en liste med alle apparatøvelser sånn at brukeren for opp en highscore.
+	public List<String> getApparatOvelser(Connection conn) throws SQLException {
+		Statement st = conn.createStatement();
+		String sql = "SELECT navn, antallkilo, antallsett FROM øvelse INNER JOIN apparatøvelse ON (apparatøvelse.øvelsenr = øvelse.øvelsenr) ORDER BY antallkilo DESC";
+		ResultSet rs = st.executeQuery(sql);
+		List<String> apparatOvelseList = new ArrayList<String>();
+		while(rs.next()) {
+			String øvelsenavn = rs.getString("navn");
+			int antallkilo = rs.getInt("antallkilo");
+			int antallsett = rs.getInt("antallsett");
+			String listStr = øvelsenavn + ": Antall kilo: " + String.valueOf(antallkilo) + " Antall sett: " + String.valueOf(antallsett);
+			apparatOvelseList.add(listStr);
+		}
+		System.out.println(apparatOvelseList);
+		return apparatOvelseList;
+	} 
 }

@@ -59,7 +59,7 @@ public class AppController{
 	private Slider sliderMin, sliderSec;
 		
 	@FXML
-	private ListView<String> ovelseListView;
+	private ListView<String> ovelseListView, highscoreListview;
 	
 	Connection conn;
 	
@@ -233,4 +233,16 @@ public class AppController{
 			}
 		});	
 	}
+
+	//Henter apparatøvelsene som er gruppert med synkende verdi på antall kilo
+	//Legger dette i et listview.
+	public void updateHighscore() throws SQLException {
+		DBHandler dbhandler = new DBHandler();
+		List<String> apparatOvelseList = dbhandler.getApparatOvelser(conn);
+		
+		//Legger til elementene fra getOvelser i listview
+		highscoreListview.setItems(FXCollections.observableArrayList(apparatOvelseList));
+		highscoreListview.getSelectionModel().select(0);
+	}
+	
 }
