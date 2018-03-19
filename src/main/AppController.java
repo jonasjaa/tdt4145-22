@@ -187,7 +187,6 @@ public class AppController{
 			List<Integer> øvelseNrList = new ArrayList<>();
 			
 			for(String øvelse : valgteØvelser) {
-				System.out.println(øvelse.toString());
 				String[] øvelseSplit = øvelse.split(",");
 				øvelseNrList.add(Integer.valueOf(øvelseSplit[0]));
 			}

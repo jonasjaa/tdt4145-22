@@ -173,7 +173,6 @@ public class DBHandler {
 			String listStr = øvelsenavn + ": Antall kilo: " + String.valueOf(antallkilo) + " Antall sett: " + String.valueOf(antallsett);
 			apparatOvelseList.add(listStr);
 		}
-		System.out.println(apparatOvelseList);
 		return apparatOvelseList;
 	} 
 }
