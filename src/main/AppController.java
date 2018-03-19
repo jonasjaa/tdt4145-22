@@ -246,17 +246,22 @@ public class AppController{
 	
 	public void viseSisteOkter () throws SQLException {
 		DBHandler dbhandler = new DBHandler();
+		List<String> oktList = dbhandler.getØkter(conn);
+		List<String> outList = new ArrayList<>();
 		if (nSiste.getText().isEmpty()) {
 			nSisteOutput.setText("Kan ikke være tom");
 		}
+		else if(Integer.valueOf(nSiste.getText()) > oktList.size()) {
+			nSisteOutput.setText("Det finnes ikke så mange treningsøkter i listen");
+		}
 		
 		else {
-		List<String> oktList = dbhandler.getØkter(conn);
-		List<String> outList = new ArrayList<>();
+		
 		for (int i=0; i < Integer.valueOf(nSiste.getText()); i++) {
 			outList.add(oktList.get(i));
 		}
 		oktListview.setItems(FXCollections.observableArrayList(outList));
+		nSisteOutput.setText("");
 		}
 		}
 	
