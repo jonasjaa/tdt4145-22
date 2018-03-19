@@ -140,9 +140,9 @@
                         <Pane prefHeight="582.0" prefWidth="351.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
                               <DatePicker fx:id="oktDato" layoutX="116.0" layoutY="38.0" prefHeight="25.0" prefWidth="219.0" promptText="01.01.2018" showWeekNumbers="true" />
-                              <TextField fx:id="oktVarighet" layoutX="116.0" layoutY="149.0" prefHeight="25.0" prefWidth="219.0" />
-                              <TextField fx:id="oktForm" layoutX="116.0" layoutY="204.0" prefHeight="25.0" prefWidth="219.0" />
-                              <TextField fx:id="oktPrestasjon" layoutX="116.0" layoutY="258.0" prefHeight="25.0" prefWidth="219.0" />
+                              <TextField fx:id="oktVarighet" layoutX="176.0" layoutY="150.0" prefHeight="25.0" prefWidth="159.0" />
+                              <TextField fx:id="oktForm" layoutX="176.0" layoutY="205.0" prefHeight="25.0" prefWidth="159.0" />
+                              <TextField fx:id="oktPrestasjon" layoutX="176.0" layoutY="258.0" prefHeight="25.0" prefWidth="159.0" />
                               <Label layoutX="18.0" layoutY="42.0" text="Dato: " textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="15.0" />
@@ -153,17 +153,17 @@
                                     <Font name="Consolas" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="18.0" layoutY="153.0" text="Varighet: " textFill="WHITE">
+                              <Label layoutX="18.0" layoutY="153.0" text="Varighet (i min): " textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="18.0" layoutY="208.0" text="Form: " textFill="WHITE">
+                              <Label layoutX="18.0" layoutY="208.0" text="Form (1-10): " textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="18.0" layoutY="262.0" text="Prestasjon: " textFill="WHITE">
+                              <Label layoutX="18.0" layoutY="262.0" text="Prestasjon (1-10): " textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="15.0" />
                                  </font>
