@@ -38,7 +38,7 @@ public class AppController{
 	
 	//Variabler for fx:id i FXML
 	@FXML
-	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt;	
+	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt, nSiste;	
 	
 	@FXML
 	private TextArea apparatBeskrivelse, friOvelseBeskrivelse;
@@ -53,13 +53,13 @@ public class AppController{
 	private DatePicker oktDato;
 	
 	@FXML
-	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback;
+	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput;
 	
 	@FXML
 	private Slider sliderMin, sliderSec;
 		
 	@FXML
-	private ListView<String> ovelseListView, highscoreListview;
+	private ListView<String> ovelseListView, highscoreListview, oktListview;
 	
 	Connection conn;
 	
@@ -243,5 +243,21 @@ public class AppController{
 		highscoreListview.setItems(FXCollections.observableArrayList(apparatOvelseList));
 		highscoreListview.getSelectionModel().select(0);
 	}
+	
+	public void viseSisteOkter () throws SQLException {
+		DBHandler dbhandler = new DBHandler();
+		if (nSiste.getText().isEmpty()) {
+			nSisteOutput.setText("Kan ikke være tom");
+		}
+		
+		else {
+		List<String> oktList = dbhandler.getØkter(conn);
+		List<String> outList = new ArrayList<>();
+		for (int i=0; i < Integer.valueOf(nSiste.getText()); i++) {
+			outList.add(oktList.get(i));
+		}
+		oktListview.setItems(FXCollections.observableArrayList(outList));
+		}
+		}
 	
 }

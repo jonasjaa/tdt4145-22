@@ -209,7 +209,33 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab text="untitled tab" />
+            <Tab text="Vise treningsøkter">
+              <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="nSiste" layoutX="287.0" layoutY="56.0" onAction="#viseSisteOkter" prefHeight="25.0" prefWidth="46.0" promptText="n" />
+                              <Label layoutX="196.0" layoutY="56.0" text="Viser de" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="339.0" layoutY="58.0" text="siste treningsøktene" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="18.0" />
+                                 </font>
+                              </Label>
+                              <ListView id="oktListview" fx:id="oktListview" layoutX="157.0" layoutY="111.0" prefHeight="371.0" prefWidth="525.0" />
+                              <Label fx:id="nSisteOutput" layoutX="157.0" layoutY="521.0" text="---" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                             </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
+            </Tab>
             <Tab text="Untitled Tab">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />

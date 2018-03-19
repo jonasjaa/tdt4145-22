@@ -175,4 +175,24 @@ public class DBHandler {
 		}
 		return apparatOvelseList;
 	} 
+	
+	//Henter ut en liste med alle terningsøkter registrert i databasen
+		public  List<String> getØkter(Connection conn) throws SQLException {
+			Statement st = conn.createStatement();
+			String sql = "SELECT * FROM treningsøkt ORDER BY øktnr DESC";
+			ResultSet rs = st.executeQuery(sql);
+			List<String> øktList = new ArrayList<>();
+			while(rs.next()) {
+				int øktnr = rs.getInt("øktnr");
+				Date dato = rs.getDate("dato");
+				Time tidspunkt = rs.getTime("tidspunkt");
+				int varighet = rs.getInt("varighet");
+				int form = rs.getInt("form");
+				int prestasjon = rs.getInt("prestasjon");
+				String listString = "Øktnummer: " + String.valueOf(øktnr) + " Dato: " + String.valueOf(dato) + " Tidspunkt: " + String.valueOf(tidspunkt)
+				+ " Varighet: " + String.valueOf(varighet) + " Form: " + String.valueOf(form) + " Prestasjon: " + String.valueOf(prestasjon);
+				øktList.add(listString);	
+			}
+			return øktList;
+		}
 }
