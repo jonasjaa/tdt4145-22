@@ -9,12 +9,11 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1203.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -24,23 +23,23 @@
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="apparatNavn" layoutX="198.0" layoutY="92.0" prefHeight="25.0" prefWidth="526.0" />
-                              <TextArea fx:id="apparatBeskrivelse" layoutX="197.0" layoutY="171.0" prefHeight="271.0" prefWidth="525.0" style="-fx-background-radius: 6px;" wrapText="true" />
-                              <Button fx:id="apparatReg" layoutX="196.0" layoutY="453.0" mnemonicParsing="false" onAction="#regApparat" prefHeight="43.0" prefWidth="525.0" style="-fx-background-radius: 6px;" stylesheets="@style.css" text="Registrer" textFill="WHITE">
+                              <TextField fx:id="apparatNavn" layoutX="103.0" layoutY="85.0" prefHeight="25.0" prefWidth="1000.0" />
+                              <TextArea fx:id="apparatBeskrivelse" layoutX="102.0" layoutY="164.0" prefHeight="271.0" prefWidth="1000.0" style="-fx-background-radius: 6px;" wrapText="true" />
+                              <Button fx:id="apparatReg" layoutX="101.0" layoutY="446.0" mnemonicParsing="false" onAction="#regApparat" prefHeight="43.0" prefWidth="1000.0" style="-fx-background-radius: 6px;" stylesheets="@style.css" text="Registrer" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="17.0" />
                                  </font></Button>
-                              <Label layoutX="196.0" layoutY="56.0" text="Apparatnavn" textFill="WHITE">
+                              <Label layoutX="101.0" layoutY="49.0" text="Apparatnavn" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="195.0" layoutY="132.0" text="Beskrivelse" textFill="WHITE">
+                              <Label layoutX="100.0" layoutY="125.0" text="Beskrivelse" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="apparatFeedback" alignment="CENTER" layoutX="198.0" layoutY="510.0" prefHeight="30.0" prefWidth="522.0" text="---" textFill="WHITE">
+                              <Label fx:id="apparatFeedback" alignment="CENTER" layoutX="103.0" layoutY="503.0" prefHeight="30.0" prefWidth="1000.0" text="---" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -54,25 +53,25 @@
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <right>
-                        <Pane prefHeight="582.0" prefWidth="518.0" style="-fx-background-color: #03737d;" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="582.0" prefWidth="798.0" style="-fx-background-color: #03737d;" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="friOvelseNavn" layoutX="16.0" layoutY="51.0" prefHeight="25.0" prefWidth="427.0" />
+                              <TextField fx:id="friOvelseNavn" layoutX="16.0" layoutY="51.0" prefHeight="25.0" prefWidth="700.0" />
                               <Label layoutX="16.0" layoutY="17.0" text="Friøvelsenavn" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="friOvelseBeskrivelse" layoutX="16.0" layoutY="121.0" prefHeight="267.0" prefWidth="427.0" wrapText="true" />
+                              <TextArea fx:id="friOvelseBeskrivelse" layoutX="16.0" layoutY="121.0" prefHeight="267.0" prefWidth="700.0" wrapText="true" />
                               <Label layoutX="16.0" layoutY="91.0" text="Beskrivelse: " textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="16.0" layoutY="404.0" mnemonicParsing="false" onAction="#regFriOvelse" prefHeight="45.0" prefWidth="427.0" stylesheets="@style.css" text="Registrer friøvelse" textFill="WHITE">
+                              <Button layoutX="16.0" layoutY="404.0" mnemonicParsing="false" onAction="#regFriOvelse" prefHeight="45.0" prefWidth="700.0" stylesheets="@style.css" text="Registrer friøvelse" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="17.0" />
                                  </font></Button>
-                              <Label fx:id="friOvelseFeedback" alignment="CENTER" layoutX="16.0" layoutY="471.0" prefHeight="23.0" prefWidth="427.0" text="---" textAlignment="CENTER" textFill="WHITE">
+                              <Label fx:id="friOvelseFeedback" alignment="CENTER" layoutX="16.0" layoutY="471.0" prefHeight="23.0" prefWidth="700.0" text="---" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="20.0" />
                                  </font>
@@ -89,13 +88,8 @@
                                  </font>
                               </Label>
                               <TextField fx:id="apparatOvelseNavn" layoutX="16.0" layoutY="51.0" prefHeight="25.0" prefWidth="427.0" />
-                              <ComboBox fx:id="apparatDropdown" layoutX="16.0" layoutY="121.0" prefHeight="43.0" prefWidth="427.0" />
-                              <Button fx:id="apparatVelg" layoutX="16.0" layoutY="187.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="427.0" style="-fx-background-color: orange;" text="Oppdater valgt apparat">
-                                 <font>
-                                    <Font name="Consolas" size="12.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="apparatOvelseReg" layoutX="16.0" layoutY="404.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="427.0" stylesheets="@style.css" text="Registrer apparatøvelse" textFill="WHITE" visible="false">
+                              <ComboBox fx:id="apparatDropdown" layoutX="16.0" layoutY="121.0" prefHeight="52.0" prefWidth="427.0" />
+                              <Button fx:id="apparatOvelseReg" layoutX="16.0" layoutY="196.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="427.0" stylesheets="@style.css" text="Registrer apparatøvelse" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="17.0" />
                                  </font>
@@ -105,14 +99,9 @@
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="apparatOvelseFeedback" alignment="CENTER" layoutX="16.0" layoutY="471.0" prefHeight="23.0" prefWidth="427.0" text="---" textAlignment="CENTER" textFill="WHITE">
+                              <Label fx:id="apparatOvelseFeedback" alignment="CENTER" layoutX="16.0" layoutY="268.0" prefHeight="23.0" prefWidth="427.0" text="---" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="valgtApparatLabel" layoutX="159.0" layoutY="239.0" text="[valgt apparat]" textFill="WHITE">
-                                 <font>
-                                    <Font name="Consolas Italic" size="17.0" />
                                  </font>
                               </Label>
                            </children>
@@ -165,19 +154,46 @@
                            </children></Pane>
                      </left>
                      <center>
-                        <Pane prefHeight="582.0" prefWidth="594.0" style="-fx-background-color: #03737d;" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="582.0" prefWidth="1070.0" style="-fx-background-color: #03737d;" BorderPane.alignment="CENTER">
                            <children>
-                              <ListView fx:id="ovelseListView" editable="true" layoutX="21.0" layoutY="51.0" prefHeight="449.0" prefWidth="525.0" />
                               <Label layoutX="21.0" layoutY="21.0" text="Velg øvelser som skal være med i treningsøkten:" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="regTreningsokt" layoutX="21.0" layoutY="515.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="525.0" stylesheets="@style.css" text="Registrer treningsøkt" textFill="WHITE">
+                              <Button fx:id="regTreningsokt" layoutX="25.0" layoutY="522.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="810.0" stylesheets="@style.css" text="Registrer treningsøkt" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="17.0" />
                                  </font>
                               </Button>
+                              <Pane layoutX="25.0" layoutY="52.0" prefHeight="255.0" prefWidth="400.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <ComboBox fx:id="velgApparatovelse" layoutX="26.0" layoutY="16.0" prefHeight="31.0" prefWidth="349.0" promptText="velg apparatøvelse" />
+                                    <TextField fx:id="apparatAntKilo" layoutX="100.0" layoutY="81.0" prefHeight="25.0" prefWidth="274.0" />
+                                    <TextField fx:id="apparatAntSett" layoutX="100.0" layoutY="137.0" prefHeight="25.0" prefWidth="272.0" />
+                                    <Label layoutX="24.0" layoutY="83.0" text="Antall kilo: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="24.0" layoutY="139.0" text="Antall sett: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="addApparatovelse" layoutX="26.0" layoutY="191.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="344.0" text="Legg til apparatøvelse" />
+                                 </children>
+                              </Pane>
+                              <Pane layoutX="434.0" layoutY="51.0" prefHeight="257.0" prefWidth="400.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <TextArea fx:id="friovelseKommentar" layoutX="28.0" layoutY="81.0" prefHeight="101.0" prefWidth="348.0" />
+                                    <ComboBox fx:id="velgFriovelse" layoutX="28.0" layoutY="17.0" prefHeight="31.0" prefWidth="349.0" promptText="velg friøvelse" />
+                                    <Button fx:id="addFriovelse" layoutX="28.0" layoutY="192.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="350.0" text="Legg til friøvelse" />
+                                    <Label layoutX="28.0" layoutY="57.0" text="Kommentar til friøvelse" />
+                                 </children>
+                              </Pane>
+                              <ListView fx:id="oktApparatovelser" layoutX="25.0" layoutY="315.0" prefHeight="194.0" prefWidth="400.0" />
+                              <ListView fx:id="oktFriovelser" layoutX="434.0" layoutY="315.0" prefHeight="194.0" prefWidth="400.0" />
                            </children></Pane>
                      </center>
                   </BorderPane>
@@ -189,8 +205,8 @@
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
-                              <ListView fx:id="highscoreListview" layoutX="21.0" layoutY="74.0" prefHeight="490.0" prefWidth="875.0" style="-fx-background-color: white;" />
-                              <Button layoutX="21.0" layoutY="21.0" mnemonicParsing="false" onAction="#updateHighscore" prefHeight="35.0" prefWidth="875.0" text="Oppdater highscorelisten" />
+                              <ListView fx:id="highscoreListview" layoutX="102.0" layoutY="71.0" prefHeight="490.0" prefWidth="1000.0" style="-fx-background-color: white;" />
+                              <Button layoutX="102.0" layoutY="18.0" mnemonicParsing="false" onAction="#updateHighscore" prefHeight="35.0" prefWidth="1000.0" text="Oppdater highscorelisten" />
                            </children>
                         </Pane>
                      </center>
@@ -203,18 +219,18 @@
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="nSiste" layoutX="287.0" layoutY="56.0" onAction="#viseSisteOkter" prefHeight="25.0" prefWidth="46.0" promptText="n" />
-                              <Label layoutX="196.0" layoutY="56.0" text="Viser de" textFill="WHITE">
+                              <TextField fx:id="nSiste" layoutX="193.0" layoutY="63.0" onAction="#viseSisteOkter" prefHeight="25.0" prefWidth="46.0" promptText="n" />
+                              <Label layoutX="102.0" layoutY="63.0" text="Viser de" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="339.0" layoutY="58.0" text="siste treningsøktene" textFill="WHITE">
+                              <Label layoutX="245.0" layoutY="65.0" text="siste treningsøktene" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <ListView id="oktListview" fx:id="oktListview" layoutX="157.0" layoutY="111.0" prefHeight="371.0" prefWidth="525.0" />
+                              <ListView id="oktListview" fx:id="oktListview" layoutX="102.0" layoutY="105.0" prefHeight="446.0" prefWidth="1000.0" />
                               <Label fx:id="nSisteOutput" layoutX="157.0" layoutY="521.0" text="---" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
@@ -231,7 +247,6 @@
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
                               <TextField fx:id="ovGruppeNavn" layoutX="179.0" layoutY="107.0" prefHeight="25.0" prefWidth="751.0" />
-                              <ListView fx:id="ovGruppeList" layoutX="179.0" layoutY="148.0" prefHeight="300.0" prefWidth="751.0" />
                               <Button fx:id="ovGruppeReg" layoutX="180.0" layoutY="461.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="751.0" stylesheets="@style.css" text="Opprett øvelsesgruppe">
                                  <font>
                                     <Font name="Consolas Bold" size="15.0" />
@@ -247,6 +262,18 @@
                                     <Font size="17.0" />
                                  </font>
                               </Label>
+                              <ListView fx:id="ovGruppeList2" layoutX="556.0" layoutY="179.0" prefHeight="269.0" prefWidth="375.0" />
+                              <Label layoutX="290.0" layoutY="137.0" text="Apparatøvelser" textFill="WHITE">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="674.0" layoutY="137.0" text="Friøvelser" textFill="WHITE">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <ListView fx:id="ovGruppeList1" layoutX="180.0" layoutY="179.0" prefHeight="269.0" prefWidth="375.0" />
                            </children>
                         </Pane>
                      </center></BorderPane>
@@ -258,13 +285,13 @@
                      <center>
                         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="282.0" layoutY="72.0" text="Velg øvelsesgruppe:" textFill="WHITE">
+                              <Label layoutX="102.0" layoutY="69.0" text="Velg øvelsesgruppe:" textFill="WHITE">
                                  <font>
                                     <Font name="Consolas" size="17.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="ovGruppeDropdown" layoutX="283.0" layoutY="109.0" prefHeight="33.0" prefWidth="544.0" />
-                              <ListView fx:id="ovGruppeList1" layoutX="283.0" layoutY="161.0" prefHeight="361.0" prefWidth="544.0" />
+                              <ComboBox fx:id="ovGruppeDropdown" layoutX="102.0" layoutY="112.0" prefHeight="33.0" prefWidth="1000.0" />
+                              <ListView fx:id="ovGruppeList3" layoutX="102.0" layoutY="171.0" prefHeight="361.0" prefWidth="1000.0" />
                            </children>
                         </Pane>
                      </center></BorderPane>
@@ -280,26 +307,26 @@
                                  <font>
                                     <Font size="18.0" />
                                  </font></Label>
-                              <ListView fx:id="resultatListview" layoutX="104.0" layoutY="191.0" prefHeight="305.0" prefWidth="608.0" />
-                              <Label layoutX="129.0" layoutY="45.0" text="Viser resultatlogg for:" textFill="WHITE">
+                              <ListView fx:id="resultatListview" layoutX="117.0" layoutY="219.0" prefHeight="305.0" prefWidth="1000.0" />
+                              <Label layoutX="117.0" layoutY="35.0" text="Viser resultatlogg for:" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="resultatOvelseDropdown" layoutX="309.0" layoutY="46.0" prefWidth="150.0" promptText="Velg øvelse" />
-                              <Label layoutX="129.0" layoutY="89.0" text="Fra dato:" textFill="WHITE">
+                              <ComboBox fx:id="resultatOvelseDropdown" layoutX="117.0" layoutY="72.0" prefWidth="1000.0" promptText="Velg øvelse" />
+                              <Label layoutX="210.0" layoutY="114.0" text="Fra dato:" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="395.0" layoutY="89.0" text="Til dato:" textFill="WHITE">
+                              <Label layoutX="619.0" layoutY="114.0" text="Til dato:" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="resultatFraDato" layoutX="207.0" layoutY="90.0" />
-                              <DatePicker fx:id="resultatTilDato" layoutX="465.0" layoutY="90.0" />
-                              <Button fx:id="ovelseVelg" layoutX="207.0" layoutY="140.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="410.0" text="Vis resultatlogg" />
+                              <DatePicker fx:id="resultatFraDato" layoutX="295.0" layoutY="115.0" prefWidth="295.0" />
+                              <DatePicker fx:id="resultatTilDato" layoutX="698.0" layoutY="115.0" prefHeight="25.0" prefWidth="295.0" />
+                              <Button fx:id="ovelseVelg" layoutX="117.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="1000.0" text="Vis resultatlogg" />
                              </children>
                         </Pane>
                      </center></BorderPane>
