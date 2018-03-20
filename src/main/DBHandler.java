@@ -20,7 +20,6 @@ public class DBHandler {
 		DBConn dbconn = new DBConn();
 		DBHandler test = new DBHandler();
 		conn = dbconn.getConn();
-		test.getApparatOvelser(conn);
 	}
 	
 	//Funksjon for å registrere apparat til databasen
@@ -43,12 +42,13 @@ public class DBHandler {
 	}
 	
 	//Funksjon for å registere apparatøvelse
-	public void registrerApparatOvelse(Connection conn, int apparatnr, String navn, int kilo, int sett) throws SQLException {
+	public void registrerApparatOvelse(Connection conn, int apparatnr, String navn) throws SQLException {
 		//Statement for å skrive til øvelsetabellen
 		PreparedStatement stmt1 = conn.prepareStatement(
-				"INSERT INTO øvelse(navn)" +
-				"VALUES(?)", Statement.RETURN_GENERATED_KEYS);
-		stmt1.setString(1, navn);
+				"INSERT INTO apparatøvelse(apparatnr, navn)" +
+				"VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
+		stmt1.setInt(1, apparatnr);
+		stmt1.setString(2, navn);
 		stmt1.executeUpdate();
 		
 		//Henter også her ut nøklene. 
@@ -56,45 +56,18 @@ public class DBHandler {
 		ResultSet tableKeys = stmt1.getGeneratedKeys();
 		tableKeys.next();
 		int øvelseNr = tableKeys.getInt(1);
-		
-		//Statement for å skrive til apparatTilApparatøvelse
-		PreparedStatement stmt2 = conn.prepareStatement(
-				"INSERT INTO apparatTilApparatøvelse(øvelsenr, apparatnr)" + 
-				"VALUES(?,?)");
-		stmt2.setInt(1, øvelseNr);
-		stmt2.setInt(2, apparatnr);
-		stmt2.executeUpdate();
-		
-		//Statement for å skrive til apparatøvelse
-		PreparedStatement stmt3 = conn.prepareStatement(
-				"INSERT INTO apparatøvelse(øvelsenr, antallkilo, antallsett)" +
-				"VALUES(?,?,?)");
-		stmt3.setInt(1, øvelseNr);
-		stmt3.setInt(2, kilo);
-		stmt3.setInt(3, sett);
-		stmt3.executeUpdate();
-				
+						
 		System.out.println("Successfully inserted to the database");
 	}
 	
 	//Funksjon for å registrere friøvelse
 	public void registrerFriOvelse(Connection conn, String navn, String friOvBeskr) throws SQLException {
-		PreparedStatement stmt1 = conn.prepareStatement(
-				"INSERT INTO øvelse(navn)" +
-				"VALUES(?)", Statement.RETURN_GENERATED_KEYS);
-		stmt1.setString(1, navn);
-		stmt1.executeUpdate();
-		
 		//Henter også her ut nøklene. 
-		//Nøkkelen her blir brukt videre til spørringene under, som fremmednøkkel.
-		ResultSet tableKeys = stmt1.getGeneratedKeys();
-		tableKeys.next();
-		int øvelseNr = tableKeys.getInt(1);
-		
+		//Nøkkelen her blir brukt videre til spørringene under, som fremmednøkkel.		
 		PreparedStatement stmt2 = conn.prepareStatement(
-				"INSERT INTO friøvelse(øvelsenr, beskrivelse)" + 
+				"INSERT INTO friøvelse(navn, beskrivelse)" + 
 				"VALUES(?,?)", Statement.RETURN_GENERATED_KEYS);
-		stmt2.setInt(1, øvelseNr);
+		stmt2.setString(1, navn);
 		stmt2.setString(2, friOvBeskr);
 		stmt2.executeUpdate();
 		
@@ -169,13 +142,27 @@ public class DBHandler {
 	}
 	
 	//Henter ut en liste med alle øvelser som brukes i listview for å legge til treningsøkt med øvelser
-	public List<String> getOvelser(Connection conn) throws SQLException {
+	public List<String> getFriovelser(Connection conn) throws SQLException {
 		Statement st = conn.createStatement();
-		String sql = "SELECT øvelsenr, navn FROM øvelse";
+		String sql = "SELECT friøvelsenr, navn FROM friøvelse";
 		ResultSet rs = st.executeQuery(sql);
 		List<String> ovelseList = new ArrayList<>();
 		while(rs.next()) {
-			int øvelsenr = rs.getInt("øvelsenr");
+			int øvelsenr = rs.getInt("friøvelsenr");
+			String øvelsenavn = rs.getString("navn");
+			String listStr = String.valueOf(øvelsenr) + "," + øvelsenavn;
+			ovelseList.add(listStr);
+		}
+		return ovelseList;
+	}
+	
+	public List<String> getApparatovelser(Connection conn) throws SQLException {
+		Statement st = conn.createStatement();
+		String sql = "SELECT apparatøvelsenr, navn FROM apparatøvelse";
+		ResultSet rs = st.executeQuery(sql);
+		List<String> ovelseList = new ArrayList<>();
+		while(rs.next()) {
+			int øvelsenr = rs.getInt("apparatøvelsenr");
 			String øvelsenavn = rs.getString("navn");
 			String listStr = String.valueOf(øvelsenr) + "," + øvelsenavn;
 			ovelseList.add(listStr);
@@ -184,15 +171,15 @@ public class DBHandler {
 	}
 	
 	//Henter ut en liste med alle apparatøvelser sånn at brukeren for opp en highscore.
-	public List<String> getApparatOvelser(Connection conn) throws SQLException {
+	public List<String> getApparatOvelseIOkt(Connection conn) throws SQLException {
 		Statement st = conn.createStatement();
-		String sql = "SELECT navn, antallkilo, antallsett FROM øvelse INNER JOIN apparatøvelse ON (apparatøvelse.øvelsenr = øvelse.øvelsenr) ORDER BY antallkilo DESC";
+		String sql = "SELECT navn, antallKilo, antallSett FROM apparatØvelseIØkt INNER JOIN apparatøvelse ON (apparatøvelse.apparatøvelsenr = apparatØvelseIØkt.apparatøvelsenr) ORDER BY antallKilo DESC";
 		ResultSet rs = st.executeQuery(sql);
 		List<String> apparatOvelseList = new ArrayList<String>();
 		while(rs.next()) {
 			String øvelsenavn = rs.getString("navn");
-			int antallkilo = rs.getInt("antallkilo");
-			int antallsett = rs.getInt("antallsett");
+			int antallkilo = rs.getInt("antallKilo");
+			int antallsett = rs.getInt("antallSett");
 			String listStr = øvelsenavn + ": Antall kilo: " + String.valueOf(antallkilo) + " Antall sett: " + String.valueOf(antallsett);
 			apparatOvelseList.add(listStr);
 		}
