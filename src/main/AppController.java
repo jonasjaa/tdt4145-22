@@ -202,6 +202,9 @@ public class AppController{
 			else if(oktPrestasjon.getText().isEmpty()) {
 				treningsoktFeedback.setText("Prestasjon kan ikke være tomt!");
 			}
+			else if(valgteApparatovelser.isEmpty() && valgteFriovelser.isEmpty()) {
+				treningsoktFeedback.setText("Treningsøkten må inneholde minst en øvelse!");
+			}
 			else {
 				try {
 					//Setter inn i databasen
@@ -251,17 +254,15 @@ public class AppController{
 			nSisteOutput.setText("Kan ikke være tom");
 		}
 		else if(Integer.valueOf(nSiste.getText()) > oktList.size()) {
-			nSisteOutput.setText("Det finnes ikke sø mange treningsøkter i listen");
+			nSisteOutput.setText("Det finnes ikke så mange treningsøkter i listen");
 		}
-		
 		else {
-		
-		for (int i=0; i < Integer.valueOf(nSiste.getText()); i++) {
-			outList.add(oktList.get(i));
-		}
-		oktListview.setItems(FXCollections.observableArrayList(outList));
-		nSisteOutput.setText("");
-		}
+			for (int i=0; i < Integer.valueOf(nSiste.getText()); i++) {
+				outList.add(oktList.get(i));
+			}
+			oktListview.setItems(FXCollections.observableArrayList(outList));
+			nSisteOutput.setText("");
+			}
 		}
 
 	//Funksjon for å vise øvelser mellom to datoer
@@ -296,7 +297,7 @@ public class AppController{
 			}	
 			resultatListview.setItems(FXCollections.observableArrayList(outList));
 		});
-	}
+	} 
 	
 	//Funksjon for ø registrere øvelsesgruppe
 	public void regOvelsegruppe() throws SQLException {

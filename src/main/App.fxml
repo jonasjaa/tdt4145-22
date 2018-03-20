@@ -230,8 +230,8 @@
                                     <Font name="Consolas" size="18.0" />
                                  </font>
                               </Label>
-                              <ListView id="oktListview" fx:id="oktListview" layoutX="102.0" layoutY="105.0" prefHeight="446.0" prefWidth="1000.0" />
-                              <Label fx:id="nSisteOutput" layoutX="157.0" layoutY="521.0" text="---" textFill="WHITE">
+                              <ListView id="oktListview" fx:id="oktListview" layoutX="102.0" layoutY="105.0" prefHeight="404.0" prefWidth="1000.0" />
+                              <Label fx:id="nSisteOutput" alignment="CENTER" layoutX="102.0" layoutY="523.0" prefWidth="1000.0" text="---" textFill="WHITE">
                                  <font>
                                     <Font size="18.0" />
                                  </font></Label>

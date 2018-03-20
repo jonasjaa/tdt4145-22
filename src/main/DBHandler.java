@@ -266,18 +266,24 @@ public class DBHandler {
 				øvelsegruppeList.add(listString);
 			}
 			return øvelsegruppeList;
-		}
+		} 
 		
 	//Henter ut en liste med alle øvelser i øvelsesgrupper
 	public List<String> getOvelserIGruppe(Connection conn, int gruppeNr) throws SQLException{
 			Statement st = conn.createStatement();
-			String sql = "SELECT * FROM øvelsegruppe øg "
+			Statement st2 = conn.createStatement();
+			String sql = "SELECT * FROM øvelsegruppe øg"
 					+ " INNER JOIN apparatøvelseIØvelsegruppe ag ON (ag.gruppenr = øg.gruppenr)"
-					+ " INNER JOIN friøvelseIØvelsegruppe fg ON (fg.gruppenr = øg.gruppenr)"
 					+ " INNER JOIN apparatøvelse aø ON (aø.apparatøvelsenr = ag.apparatøvelsenr)"
+					+ " WHERE ag.gruppenr = " + gruppeNr;
+			
+			String sql2 = "SELECT * FROM øvelsegruppe øg"
+					+ " INNER JOIN friøvelseIØvelsegruppe fg ON (fg.gruppenr = øg.gruppenr)"
 					+ " INNER JOIN friøvelse fø ON (fø.friøvelsenr = fg.friøvelsenr)"
-					+ " WHERE ag.gruppenr = " + gruppeNr + " AND fg.gruppenr = " + gruppeNr;
+					+ " WHERE fg.gruppenr = " + gruppeNr;
+			
 			ResultSet rs = st.executeQuery(sql);
+			ResultSet rs2 = st2.executeQuery(sql2);
 			List<String> apparatøvelseList = new ArrayList<>();
 			List<String> friøvelseList = new ArrayList<>();
 			while(rs.next()) {
@@ -285,14 +291,14 @@ public class DBHandler {
 				String apparatnavn = rs.getString("aø.navn");
 				String apparatlistString = "Øvelsenr: " + String.valueOf(apparatøktnr) + " Øvelsenavn: " + apparatnavn;
 				apparatøvelseList.add(apparatlistString);
-				
-				int friøktnr = rs.getInt("fg.friøvelsenr");
-				String frinavn = rs.getString("fø.navn");
+			}
+			while(rs2.next()) {
+				int friøktnr = rs2.getInt("fg.friøvelsenr");
+				String frinavn = rs2.getString("fø.navn");
 				String frilistString = "Øvelsenr: " + String.valueOf(friøktnr) + " Øvelsenavn: " + frinavn;
 				friøvelseList.add(frilistString);
 			}
 			apparatøvelseList.addAll(friøvelseList);
-			System.out.println(apparatøvelseList);
 			return apparatøvelseList;
 		}
 
