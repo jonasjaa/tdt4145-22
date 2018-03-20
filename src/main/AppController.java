@@ -38,28 +38,25 @@ public class AppController{
 	
 	//Variabler for fx:id i FXML
 	@FXML
-	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt, nSiste;	
+	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt, nSiste, ovGruppeNavn;	
 	
 	@FXML
 	private TextArea apparatBeskrivelse, friOvelseBeskrivelse;
 	
 	@FXML 
-	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt;
+	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt, ovGruppeReg;
 	
 	@FXML
-	private ComboBox<String> apparatDropdown;
+	private ComboBox<String> apparatDropdown, ovGruppeDropdown;
 	
 	@FXML
 	private DatePicker oktDato;
 	
 	@FXML
-	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput;
-	
-	@FXML
-	private Slider sliderMin, sliderSec;
+	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput, ovGruppeFeedback;
 		
 	@FXML
-	private ListView<String> ovelseListView, highscoreListview, oktListview;
+	private ListView<String> ovelseListView, highscoreListview, oktListview, ovGruppeList, ovGruppeList1;
 	
 	Connection conn;
 	
@@ -68,6 +65,8 @@ public class AppController{
 		conn = dbconn.getConn();
 		regApparatOvelse();
 		regTreningsokt();
+		regOvelsegruppe();
+		visOvelssgrupper();
 	}
 	
 	//Funksjon for å registerer apparat
@@ -265,4 +264,68 @@ public class AppController{
 		}
 		}
 	
+	//Funksjon for å registrere øvelsesgruppe
+	public void regOvelsegruppe() throws SQLException {
+		DBHandler dbhandler = new DBHandler();
+		List<String> ovelseList = dbhandler.getOvelser(conn);
+		
+		//Legger til elemente fra getOvelser i list view
+		ovGruppeList.setItems(FXCollections.observableArrayList(ovelseList));
+		ovGruppeList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		//Oppretter en liste med øvelseNr for de øvelsene som er valgt.
+		List<String> valgteØvelser = ovGruppeList.getSelectionModel().getSelectedItems();
+		List<Integer> øvelseNrList = new ArrayList<>();
+		
+		
+		ovGruppeReg.setOnAction((event) -> {
+			//Oppretter en liste med øvelsesnr fra de øvelse som er valgt
+			for(String øvelse : valgteØvelser) {
+				String[] øvelseSplit = øvelse.split(",");
+				øvelseNrList.add(Integer.valueOf(øvelseSplit[0]));
+			}
+			
+			//Sjekker om noen av feltene er tomme
+			if(ovGruppeNavn.getText().isEmpty()) {
+				ovGruppeFeedback.setText("Navnet kan ikke være tomt!");
+			}
+			else if(ovelseListView.getSelectionModel().getSelectedItem().isEmpty()) {
+				ovGruppeFeedback.setText("Øvelsesgruppen må inneholde minst en øvelse!");
+			}
+			//Legger til i databasen
+			else {
+				try {
+					dbhandler.registrerOvelsesGruppe(conn, ovGruppeNavn.getText(), øvelseNrList);
+					ovGruppeFeedback.setText("Øvelsegruppe: " + ovGruppeNavn.getText() + " har blitt lagt til i databasen med " + øvelseNrList.size() + " øvelser");
+					ovGruppeNavn.setText("");
+					visOvelssgrupper();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});	
+	}
+
+	//Funksjon for å vise øvelsesgrupper
+	public void visOvelssgrupper() throws SQLException{
+		DBHandler dbhandler = new DBHandler();
+		List<String> ovelsegruppeList = dbhandler.getOvelsesGrupper(conn);
+		
+		ovGruppeDropdown.getItems().clear();
+		ovGruppeDropdown.getItems().addAll(ovelsegruppeList);
+		
+		ovGruppeDropdown.setOnAction((event) -> {
+			String gruppevalgt = ovGruppeDropdown.getSelectionModel().getSelectedItem().toString();
+			String[] gruppevalgtsplit = gruppevalgt.split(",");
+			int gruppenr = Integer.valueOf(gruppevalgtsplit[0]);
+			try {
+				ovGruppeList1.setItems(FXCollections.observableArrayList(dbhandler.getOvelserIGruppe(conn, gruppenr)));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		});
+	}
 }

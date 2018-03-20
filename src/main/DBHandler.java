@@ -129,6 +129,29 @@ public class DBHandler {
 		System.out.println("Successfully inserted to the database");
 	}
 	
+	public void registrerOvelsesGruppe(Connection conn, String navn, List<Integer> øvelseNrList) throws SQLException {
+		PreparedStatement stmt1 = conn.prepareStatement(
+				"INSERT INTO øvelsegruppe(navn)" +
+				"VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+		stmt1.setString(1, navn);
+		stmt1.executeUpdate();
+		
+		ResultSet tableKeys = stmt1.getGeneratedKeys();
+		tableKeys.next();
+		int gruppenr = tableKeys.getInt(1);
+		
+		//Går igjennom øvelseNr-nøklene som er hentet fra Listen og legger til i øvelseIØkt.
+		for(Integer øvelseNr : øvelseNrList) {
+			PreparedStatement stmt2 = conn.prepareStatement(
+					"INSERT INTO øvelseIØvelsegruppe(gruppenr, øvelsenr)" + 
+					"VALUES(?,?)");
+			stmt2.setInt(1, gruppenr);
+			stmt2.setInt(2, øvelseNr);
+			stmt2.executeUpdate();
+		}
+		System.out.println("Successfully inserted to the database");
+	}
+	
 	//Henter ut en liste med apparater som ligger i databasen
 	//Denne listen brukes i AppController for å få opp en liste over apparat når apparatøvelse skal registeres
 	public List<String> getApparat(Connection conn) throws SQLException {
@@ -194,5 +217,34 @@ public class DBHandler {
 				øktList.add(listString);	
 			}
 			return øktList;
+		}
+		
+		public List<String> getOvelsesGrupper(Connection conn) throws SQLException{
+			Statement st = conn.createStatement();
+			String sql = "SELECT * FROM øvelsegruppe";
+			ResultSet rs = st.executeQuery(sql);
+			List<String> øvelsegruppeList = new ArrayList<>();
+			while(rs.next()) {
+				int gruppenr = rs.getInt("gruppenr");
+				String navn = rs.getString("navn");
+				String listString = String.valueOf(gruppenr) + "," + navn;
+				øvelsegruppeList.add(listString);
+			}
+			return øvelsegruppeList;
+		}
+		
+		public List<String> getOvelserIGruppe(Connection conn, int gruppeNr) throws SQLException{
+			Statement st = conn.createStatement();
+			String sql = "SELECT * FROM øvelsegruppe øg INNER JOIN øvelseIØvelsegruppe øiøg ON (øiøg.gruppenr = øg.gruppenr) INNER JOIN øvelse ø ON (øiøg.øvelsenr = ø.øvelsenr)"
+					+ " WHERE øiøg.gruppenr = " + gruppeNr;
+			ResultSet rs = st.executeQuery(sql);
+			List<String> øvelseList = new ArrayList<>();
+			while(rs.next()) {
+				int øktnr = rs.getInt("ø.øvelsenr");
+				String navn = rs.getString("ø.navn");
+				String listString = "Øvelsenr: " + String.valueOf(øktnr) + " Øvelsenavn: " + navn;
+				øvelseList.add(listString);
+			}
+			return øvelseList;
 		}
 }
