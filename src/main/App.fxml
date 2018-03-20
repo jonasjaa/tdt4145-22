@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -90,18 +90,6 @@
                               </Label>
                               <TextField fx:id="apparatOvelseNavn" layoutX="16.0" layoutY="51.0" prefHeight="25.0" prefWidth="427.0" />
                               <ComboBox fx:id="apparatDropdown" layoutX="16.0" layoutY="121.0" prefHeight="43.0" prefWidth="427.0" />
-                              <TextField fx:id="apparatAntallKilo" layoutX="151.0" layoutY="275.0" prefHeight="41.0" prefWidth="294.0" />
-                              <TextField fx:id="apparatAntallSett" layoutX="151.0" layoutY="334.0" prefHeight="41.0" prefWidth="294.0" />
-                              <Label layoutX="27.0" layoutY="286.0" text="Antall kilo: " textFill="WHITE">
-                                 <font>
-                                    <Font name="Consolas Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="27.0" layoutY="345.0" text="Antall sett: " textFill="WHITE">
-                                 <font>
-                                    <Font name="Consolas Bold" size="14.0" />
-                                 </font>
-                              </Label>
                               <Button fx:id="apparatVelg" layoutX="16.0" layoutY="187.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="427.0" style="-fx-background-color: orange;" text="Oppdater valgt apparat">
                                  <font>
                                     <Font name="Consolas" size="12.0" />
@@ -246,10 +234,40 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+            <Tab text="Resultatlogg etter dato">
+				<content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="resultatloggOutput" layoutX="157.0" layoutY="521.0" text="---" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <ListView fx:id="resultatListview" layoutX="104.0" layoutY="191.0" prefHeight="305.0" prefWidth="608.0" />
+                              <Label layoutX="129.0" layoutY="45.0" text="Viser resultatlogg for:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="resultatOvelseDropdown" layoutX="309.0" layoutY="46.0" prefWidth="150.0" promptText="Velg øvelse" />
+                              <Label layoutX="129.0" layoutY="89.0" text="Fra dato:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="395.0" layoutY="89.0" text="Til dato:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="resultatFraDato" layoutX="207.0" layoutY="90.0" />
+                              <DatePicker fx:id="resultatTilDato" layoutX="465.0" layoutY="90.0" />
+                              <Button fx:id="ovelseVelg" layoutX="207.0" layoutY="140.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="410.0" text="Vis resultatlogg" />
+                             </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
             </Tab>
         </tabs>
       </TabPane>

@@ -44,22 +44,22 @@ public class AppController{
 	private TextArea apparatBeskrivelse, friOvelseBeskrivelse;
 	
 	@FXML 
-	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt;
+	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt, ovelseVelg;
 	
 	@FXML
-	private ComboBox<String> apparatDropdown;
+	private ComboBox<String> apparatDropdown, resultatOvelseDropdown;
 	
 	@FXML
-	private DatePicker oktDato;
+	private DatePicker oktDato, resultatFraDato, resultatTildato;
 	
 	@FXML
-	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput;
+	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput, resultatloggOutput;
 	
 	@FXML
 	private Slider sliderMin, sliderSec;
 		
 	@FXML
-	private ListView<String> ovelseListView, highscoreListview, oktListview;
+	private ListView<String> ovelseListView, highscoreListview, oktListview, resultatListview;
 	
 	Connection conn;
 	
@@ -67,7 +67,8 @@ public class AppController{
 		DBConn dbconn = new DBConn();
 		conn = dbconn.getConn();
 		regApparatOvelse();
-		regTreningsokt();
+		//regTreningsokt();
+		//resultatloggDato();
 	}
 	
 	//Funksjon for å registerer apparat
@@ -112,25 +113,17 @@ public class AppController{
 				if(apparatOvelseNavn.getText().isEmpty()) {
 					apparatOvelseFeedback.setText("Navnet kan ikke være tomt!");
 				}
-				else if(apparatAntallKilo.getText().isEmpty()) {
-					apparatOvelseFeedback.setText("Antall kilo kan ikke være tomt!");
-				}
-				else if(apparatAntallSett.getText().isEmpty()) {
-					apparatOvelseFeedback.setText("Antall sett kan ikke være tomt!");
-				}
 				else {
 					try {
 					//Splitter strengen som hentes ut fra databasen med "apparatNr.apparatNavn"
 					//apparatNR hentes kun ut for at det skal bli riktig nr i tabellen apparatTilApparatØvelse
-					dbhandler.registrerApparatOvelse(conn, apparatNr, apparatOvelseNavn.getText(), Integer.valueOf(apparatAntallKilo.getText()), Integer.valueOf(apparatAntallSett.getText()));
+					dbhandler.registrerApparatOvelse(conn, apparatNr, apparatOvelseNavn.getText());
 					apparatOvelseFeedback.setText(apparatOvelseNavn.getText() + " er lagt til i databasen.");
 					regTreningsokt();
 					
 					//----------------------------------------//
 					//Gjør diverse endringer som å sette panel, knapper og label til usynlig.
 					apparatOvelseNavn.setText("");
-					apparatAntallKilo.setText("");
-					apparatAntallSett.setText("");
 					apparatOvelseReg.setVisible(false);
 					//--------------------------------------//
 					
@@ -172,10 +165,10 @@ public class AppController{
 
 	public void regTreningsokt() throws SQLException {
 		DBHandler dbhandler = new DBHandler();
-		List<String> ovelseList = dbhandler.getOvelser(conn);
+		//List<String> ovelseList = dbhandler.getApparatOvelseIOkt(conn);
 		
 		//Legger til elementene fra getOvelser i listview
-		ovelseListView.setItems(FXCollections.observableArrayList(ovelseList));
+		//ovelseListView.setItems(FXCollections.observableArrayList(ovelseList));
 		ovelseListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		ovelseListView.getSelectionModel().select(0);
 		
@@ -237,7 +230,7 @@ public class AppController{
 	//Legger dette i et listview.
 	public void updateHighscore() throws SQLException {
 		DBHandler dbhandler = new DBHandler();
-		List<String> apparatOvelseList = dbhandler.getApparatOvelser(conn);
+		List<String> apparatOvelseList = dbhandler.getApparatOvelseIOkt(conn);
 		
 		//Legger til elementene fra getOvelser i listview
 		highscoreListview.setItems(FXCollections.observableArrayList(apparatOvelseList));
@@ -264,5 +257,28 @@ public class AppController{
 		nSisteOutput.setText("");
 		}
 		}
+	
+	public void resultatloggDato() throws SQLException {
+		DBHandler dbhandler = new DBHandler();
+		List<String> ovelser = dbhandler.getApparatOvelseIOkt(conn);
+		resultatOvelseDropdown.getItems().clear();
+		resultatOvelseDropdown.getItems().addAll(ovelser);
+		
+		ovelseVelg.setOnAction((event) -> {
+			String valgtOvelse = resultatOvelseDropdown.getSelectionModel().getSelectedItem().toString();
+			System.out.println(valgtOvelse);
+			String[] valgsOvelseSplit = valgtOvelse.split(",");
+			int ovelseNr = Integer.valueOf(valgsOvelseSplit[0]);
+			String ovelseNavn = valgsOvelseSplit[1];
+			
+			
+		});
+		
+		LocalDate datoFra = resultatFraDato.getValue();
+		LocalDate datoTil = resultatTildato.getValue();
+		
+		//System.out.println("" + datoFra + datoTil);
+	}
+	
 	
 }
