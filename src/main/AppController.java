@@ -110,7 +110,6 @@ public class AppController{
 					//----------------------------------------//
 					//Gjør diverse endringer som ø sette panel, knapper og label til usynlig.
 					apparatOvelseNavn.setText("");
-					apparatOvelseReg.setVisible(false);
 					//--------------------------------------//
 					
 					} catch (SQLException e) {
