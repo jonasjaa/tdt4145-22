@@ -38,47 +38,44 @@ public class AppController{
 	
 	//Variabler for fx:id i FXML
 	@FXML
-	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt, nSiste;	
+	private TextField apparatNavn, apparatAntallKilo, apparatAntallSett, apparatOvelseNavn, friOvelseNavn, oktVarighet, oktForm, oktPrestasjon, oktTidspunkt, nSiste, ovGruppeNavn;	
 	
 	@FXML
 	private TextArea apparatBeskrivelse, friOvelseBeskrivelse;
 	
 	@FXML 
-	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt, ovelseVelg;
+	private Button apparatReg, apparatOvelseReg, apparatVelg, regTreningsokt, ovelseVelg, ovGruppeReg;
 	
 	@FXML
-	private ComboBox<String> apparatDropdown, resultatOvelseDropdown;
+	private ComboBox<String> apparatDropdown, resultatOvelseDropdown, ovGruppeDropdown;
 	
 	@FXML
 	private DatePicker oktDato, resultatFraDato, resultatTildato;
 	
 	@FXML
-	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput, resultatloggOutput;
-	
-	@FXML
-	private Slider sliderMin, sliderSec;
+	private Label apparatFeedback, apparatOvelseFeedback, friOvelseFeedback, valgtApparatLabel, treningsoktFeedback, nSisteOutput, resultatloggOutput, ovGruppeFeedback;
 		
 	@FXML
-	private ListView<String> ovelseListView, highscoreListview, oktListview, resultatListview;
-	
+	private ListView<String> ovelseListView, highscoreListview, oktListview, ovGruppeList, ovGruppeList1 , resultatListview;	
 	Connection conn;
 	
 	public void initialize() throws Exception {
 		DBConn dbconn = new DBConn();
 		conn = dbconn.getConn();
 		regApparatOvelse();
-		//regTreningsokt();
-		//resultatloggDato();
+		regTreningsokt();
+		regOvelsegruppe();
+		visOvelssgrupper();
 	}
 	
-	//Funksjon for å registerer apparat
+	//Funksjon for Ã¥ registerer apparat
 	//Denne snakker med registrerApparat i DBHandler
 	public void regApparat() throws SQLException {	
 		if(apparatNavn.getText().isEmpty()) {
-			apparatFeedback.setText("Navnet kan ikke være tomt!");
+			apparatFeedback.setText("Navnet kan ikke vÃ¦re tomt!");
 		}
 		else if(apparatBeskrivelse.getText().isEmpty()) {
-			apparatFeedback.setText("Beskrivelsen kan ikke være tom!");
+			apparatFeedback.setText("Beskrivelsen kan ikke vÃ¦re tom!");
 		}
 		else {
 			DBHandler dbhandler = new DBHandler();
@@ -107,22 +104,22 @@ public class AppController{
 			int apparatNr = Integer.valueOf(valgtApparatSplit[0]);
 			valgtApparatLabel.setText(valgtApparatSplit[1]);
 			apparatOvelseReg.setVisible(true);
-			//Registrerer apparatøvelse
+			//Registrerer apparatÃ¸velse
 			//Sjekker om noen av feltene er tomme
 			apparatOvelseReg.setOnAction((event1) -> {
 				if(apparatOvelseNavn.getText().isEmpty()) {
-					apparatOvelseFeedback.setText("Navnet kan ikke være tomt!");
+					apparatOvelseFeedback.setText("Navnet kan ikke vÃ¦re tomt!");
 				}
 				else {
 					try {
 					//Splitter strengen som hentes ut fra databasen med "apparatNr.apparatNavn"
-					//apparatNR hentes kun ut for at det skal bli riktig nr i tabellen apparatTilApparatØvelse
+					//apparatNR hentes kun ut for at det skal bli riktig nr i tabellen apparatTilApparatÃ˜velse
 					dbhandler.registrerApparatOvelse(conn, apparatNr, apparatOvelseNavn.getText());
 					apparatOvelseFeedback.setText(apparatOvelseNavn.getText() + " er lagt til i databasen.");
 					regTreningsokt();
 					
 					//----------------------------------------//
-					//Gjør diverse endringer som å sette panel, knapper og label til usynlig.
+					//GjÃ¸r diverse endringer som Ã¥ sette panel, knapper og label til usynlig.
 					apparatOvelseNavn.setText("");
 					apparatOvelseReg.setVisible(false);
 					//--------------------------------------//
@@ -137,13 +134,13 @@ public class AppController{
 	
 	public void regFriOvelse() throws SQLException {
 		DBHandler dbhandler = new DBHandler();
-		//registrer friøvelse
+		//registrer friÃ¸velse
 		//Sjekker om noen av feltene er tomme
 		if(friOvelseNavn.getText().isEmpty()) {
-			friOvelseFeedback.setText("Navnet kan ikke være tomt!");
+			friOvelseFeedback.setText("Navnet kan ikke vÃ¦re tomt!");
 		}
 		else if (friOvelseBeskrivelse.getText().isEmpty()) {
-			friOvelseFeedback.setText("Beskrivelsen kan ikke være tom!");
+			friOvelseFeedback.setText("Beskrivelsen kan ikke vÃ¦re tom!");
 		}
 		else {
 			try {
@@ -151,7 +148,7 @@ public class AppController{
 				friOvelseFeedback.setText(friOvelseNavn.getText() + " er lagt til i databasen.");
 				
 				//----------------------------------------//
-				//Gjør diverse endringer som å sette panel, knapper og label til usynlig.
+				//GjÃ¸r diverse endringer som Ã¥ sette panel, knapper og label til usynlig.
 				friOvelseNavn.setText("");
 				friOvelseBeskrivelse.setText("");
 				//--------------------------------------//
@@ -172,43 +169,43 @@ public class AppController{
 		ovelseListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		ovelseListView.getSelectionModel().select(0);
 		
-		//Dette skjer når knappen trykkes
+		//Dette skjer nÃ¥r knappen trykkes
 		regTreningsokt.setOnAction((event) -> {
 			
-			//Oppretter en liste med øvelseNr for de øvelsene som er valgt.
-			List<String> valgteØvelser = ovelseListView.getSelectionModel().getSelectedItems();
-			List<Integer> øvelseNrList = new ArrayList<>();
+			//Oppretter en liste med Ã¸velseNr for de Ã¸velsene som er valgt.
+			List<String> valgteÃ˜velser = ovelseListView.getSelectionModel().getSelectedItems();
+			List<Integer> Ã¸velseNrList = new ArrayList<>();
 			
-			for(String øvelse : valgteØvelser) {
-				String[] øvelseSplit = øvelse.split(",");
-				øvelseNrList.add(Integer.valueOf(øvelseSplit[0]));
+			for(String Ã¸velse : valgteÃ˜velser) {
+				String[] Ã¸velseSplit = Ã¸velse.split(",");
+				Ã¸velseNrList.add(Integer.valueOf(Ã¸velseSplit[0]));
 			}
 			
 			
 			//Sjekker om noen felt er tomme, og at tidspunktfeltet matcher formatet hh:mm:ss			
 			if(!oktTidspunkt.getText().matches("^([0-9]{2}):([0-9]{2}):([0-9]{2})")) {
-			treningsoktFeedback.setText("Tidspunktet må være på formatet hh:mm:ss!");
+			treningsoktFeedback.setText("Tidspunktet mÃ¥ vÃ¦re pÃ¥ formatet hh:mm:ss!");
 			}
 			else if(oktTidspunkt.getText().isEmpty()) {
-				treningsoktFeedback.setText("Tidspunkt kan ikke være tomt!");
+				treningsoktFeedback.setText("Tidspunkt kan ikke vÃ¦re tomt!");
 			}
 			else if(oktVarighet.getText().isEmpty()) {
-				treningsoktFeedback.setText("Varighet kan ikke være tomt!");
+				treningsoktFeedback.setText("Varighet kan ikke vÃ¦re tomt!");
 			}
 			else if(oktForm.getText().isEmpty()) {
-				treningsoktFeedback.setText("Form kan ikke være tomt!");
+				treningsoktFeedback.setText("Form kan ikke vÃ¦re tomt!");
 			}
 			else if(oktPrestasjon.getText().isEmpty()) {
-				treningsoktFeedback.setText("Prestasjon kan ikke være tomt!");
+				treningsoktFeedback.setText("Prestasjon kan ikke vÃ¦re tomt!");
 			}
 			else if(ovelseListView.getSelectionModel().getSelectedItem().isEmpty()) {
-				treningsoktFeedback.setText("Treningsøkten må inneholde minst en treningsøkt!");
+				treningsoktFeedback.setText("TreningsÃ¸kten mÃ¥ inneholde minst en treningsÃ¸kt!");
 			}
 			else {
 				try {
 					//Setter inn i databasen
 					dbhandler.registrerOkt(conn, Date.valueOf(oktDato.getValue()), Time.valueOf(oktTidspunkt.getText()), Integer.valueOf(oktVarighet.getText()), 
-					Integer.valueOf(oktForm.getText()), Integer.valueOf(oktPrestasjon.getText()), øvelseNrList);
+					Integer.valueOf(oktForm.getText()), Integer.valueOf(oktPrestasjon.getText()), Ã¸velseNrList);
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -217,7 +214,7 @@ public class AppController{
 					e.printStackTrace();
 				}
 				//Gir feedback til brukeren og setter feltene til tomme igjen
-				treningsoktFeedback.setText("Treningsøkten på dagen: " + Date.valueOf(oktDato.getValue()) + " med " + øvelseNrList.size() + " øvelser har blitt lagt til i databasen");
+				treningsoktFeedback.setText("TreningsÃ¸kten pÃ¥ dagen: " + Date.valueOf(oktDato.getValue()) + " med " + Ã¸velseNrList.size() + " Ã¸velser har blitt lagt til i databasen");
 				oktTidspunkt.setText("00:00:00");
 				oktVarighet.setText("");
 				oktForm.setText("");
@@ -226,7 +223,7 @@ public class AppController{
 		});	
 	}
 
-	//Henter apparatøvelsene som er gruppert med synkende verdi på antall kilo
+	//Henter apparatÃ¸velsene som er gruppert med synkende verdi pÃ¥ antall kilo
 	//Legger dette i et listview.
 	public void updateHighscore() throws SQLException {
 		DBHandler dbhandler = new DBHandler();
@@ -239,13 +236,13 @@ public class AppController{
 	
 	public void viseSisteOkter () throws SQLException {
 		DBHandler dbhandler = new DBHandler();
-		List<String> oktList = dbhandler.getØkter(conn);
+		List<String> oktList = dbhandler.getÃ˜kter(conn);
 		List<String> outList = new ArrayList<>();
 		if (nSiste.getText().isEmpty()) {
-			nSisteOutput.setText("Kan ikke være tom");
+			nSisteOutput.setText("Kan ikke vÃ¦re tom");
 		}
 		else if(Integer.valueOf(nSiste.getText()) > oktList.size()) {
-			nSisteOutput.setText("Det finnes ikke så mange treningsøkter i listen");
+			nSisteOutput.setText("Det finnes ikke sÃ¥ mange treningsÃ¸kter i listen");
 		}
 		
 		else {
@@ -280,5 +277,68 @@ public class AppController{
 		//System.out.println("" + datoFra + datoTil);
 	}
 	
-	
+	//Funksjon for Ã¥ registrere Ã¸velsesgruppe
+	public void regOvelsegruppe() throws SQLException {
+		DBHandler dbhandler = new DBHandler();
+		List<String> ovelseList = dbhandler.getOvelser(conn);
+		
+		//Legger til elemente fra getOvelser i list view
+		ovGruppeList.setItems(FXCollections.observableArrayList(ovelseList));
+		ovGruppeList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		//Oppretter en liste med Ã¸velseNr for de Ã¸velsene som er valgt.
+		List<String> valgteÃ˜velser = ovGruppeList.getSelectionModel().getSelectedItems();
+		List<Integer> Ã¸velseNrList = new ArrayList<>();
+		
+		
+		ovGruppeReg.setOnAction((event) -> {
+			//Oppretter en liste med Ã¸velsesnr fra de Ã¸velse som er valgt
+			for(String Ã¸velse : valgteÃ˜velser) {
+				String[] Ã¸velseSplit = Ã¸velse.split(",");
+				Ã¸velseNrList.add(Integer.valueOf(Ã¸velseSplit[0]));
+			}
+			
+			//Sjekker om noen av feltene er tomme
+			if(ovGruppeNavn.getText().isEmpty()) {
+				ovGruppeFeedback.setText("Navnet kan ikke vÃ¦re tomt!");
+			}
+			else if(ovelseListView.getSelectionModel().getSelectedItem().isEmpty()) {
+				ovGruppeFeedback.setText("Ã˜velsesgruppen mÃ¥ inneholde minst en Ã¸velse!");
+			}
+			//Legger til i databasen
+			else {
+				try {
+					dbhandler.registrerOvelsesGruppe(conn, ovGruppeNavn.getText(), Ã¸velseNrList);
+					ovGruppeFeedback.setText("Ã˜velsegruppe: " + ovGruppeNavn.getText() + " har blitt lagt til i databasen med " + Ã¸velseNrList.size() + " Ã¸velser");
+					ovGruppeNavn.setText("");
+					visOvelssgrupper();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});	
+	}
+
+	//Funksjon for Ã¥ vise Ã¸velsesgrupper
+	public void visOvelssgrupper() throws SQLException{
+		DBHandler dbhandler = new DBHandler();
+		List<String> ovelsegruppeList = dbhandler.getOvelsesGrupper(conn);
+		
+		ovGruppeDropdown.getItems().clear();
+		ovGruppeDropdown.getItems().addAll(ovelsegruppeList);
+		
+		ovGruppeDropdown.setOnAction((event) -> {
+			String gruppevalgt = ovGruppeDropdown.getSelectionModel().getSelectedItem().toString();
+			String[] gruppevalgtsplit = gruppevalgt.split(",");
+			int gruppenr = Integer.valueOf(gruppevalgtsplit[0]);
+			try {
+				ovGruppeList1.setItems(FXCollections.observableArrayList(dbhandler.getOvelserIGruppe(conn, gruppenr)));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		});
+	}
 }

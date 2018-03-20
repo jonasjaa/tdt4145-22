@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AppController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -224,15 +224,51 @@
                      </center></BorderPane>
                </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab text="Opprett øvelsesgrupper">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <TextField fx:id="ovGruppeNavn" layoutX="179.0" layoutY="107.0" prefHeight="25.0" prefWidth="751.0" />
+                              <ListView fx:id="ovGruppeList" layoutX="179.0" layoutY="148.0" prefHeight="300.0" prefWidth="751.0" />
+                              <Button fx:id="ovGruppeReg" layoutX="180.0" layoutY="461.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="751.0" stylesheets="@style.css" text="Opprett øvelsesgruppe">
+                                 <font>
+                                    <Font name="Consolas Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="179.0" layoutY="71.0" text="Øvelsesgruppenavn: " textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ovGruppeFeedback" alignment="CENTER" layoutX="180.0" layoutY="521.0" prefHeight="27.0" prefWidth="751.0" text="---" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab text="Vis øvelsesgrupper">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #013034;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="282.0" layoutY="72.0" text="Velg øvelsesgruppe:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Consolas" size="17.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="ovGruppeDropdown" layoutX="283.0" layoutY="109.0" prefHeight="33.0" prefWidth="544.0" />
+                              <ListView fx:id="ovGruppeList1" layoutX="283.0" layoutY="161.0" prefHeight="361.0" prefWidth="544.0" />
+                           </children>
+                        </Pane>
+                     </center></BorderPane>
+               </content>
             </Tab>
             <Tab text="Resultatlogg etter dato">
 				<content>
